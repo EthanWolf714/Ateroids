@@ -10,6 +10,7 @@ Game::~Game(){
 
 void Game::Draw(){
     player.Draw();
+    asteroid.Draw();
 }
 
 void Game::HandleInput(){

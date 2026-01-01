@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include "player.h"
+#include "asteroid.h"
 
 class Game{
     public:
@@ -11,6 +12,7 @@ class Game{
         void HandleInput();
     private:
         Player player;
+        Asteroid asteroid;
 
 };
 
