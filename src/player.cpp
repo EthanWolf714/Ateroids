@@ -72,6 +72,6 @@ void Player::Move(){
     position.y -= speed.y * acceleration;
 }
 
-void Player::Shoot(){
-    
+bool Player::Shoot(){
+
 }

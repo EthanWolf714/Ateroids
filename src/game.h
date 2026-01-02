@@ -18,6 +18,7 @@ private:
     Player player;
     Asteroid asteroid;
     std::vector<Bullet> bullets;
+    Texture2D bulletTexture;
 };
 
 #endif

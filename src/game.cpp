@@ -1,17 +1,17 @@
 #include "game.h"
 
 Game::Game(){
-
+    bulletTexture = LoadTexture("build/SPRITES/BULLET.png");
 }
 
 Game::~Game(){
-
+    UnloadTexture(bulletTexture);
 }
 
 void Game::Draw(){
     player.Draw();
     asteroid.Draw();
-    Texture2D bulletSprite = LoadTexture("build/SPRITES/BULLET.png");
+    
     std::vector<Bullet> bullets;
 }
 

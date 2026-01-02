@@ -8,9 +8,12 @@ class Player{
         Player();
         ~Player();
         void Draw();
-        void Shoot();
+        bool Shoot();
         void Move();
         void Rotate();
+        void GetPlayerRotation();
+        Vector2 GetPlayerPosition();
+        
     private:
     Texture2D image;
     Vector2 position;
