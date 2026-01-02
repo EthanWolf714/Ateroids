@@ -11,8 +11,9 @@ class Player{
         bool Shoot();
         void Move();
         void Rotate();
-        void GetPlayerRotation();
+       float GetPlayerRotation();
         Vector2 GetPlayerPosition();
+        Vector2 GetPlayerSpeed();
         
     private:
     Texture2D image;

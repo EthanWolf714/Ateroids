@@ -73,5 +73,17 @@ void Player::Move(){
 }
 
 bool Player::Shoot(){
+   return IsKeyPressed(KEY_SPACE);
+}
 
+Vector2 Player::GetPlayerPosition(){
+    return position;
+}
+
+float Player::GetPlayerRotation(){
+    return rotation;    
+}
+
+Vector2 Player::GetPlayerSpeed(){
+    return speed;
 }
