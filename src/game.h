@@ -19,6 +19,7 @@ public:
     Vector2 GetRandomEdgePosition();
     Vector2 GetRandomVelocity();
     bool IsGameOver();
+    bool PlayerDead();
     
 
 private:

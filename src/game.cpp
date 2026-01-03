@@ -87,7 +87,7 @@ void Game::HandleInput()
 void Game::Update()
 {
     HandleInput();
-
+    player.Update();
     // update all bullets
     for (auto &bullet : bullets)
     {
@@ -135,7 +135,8 @@ void Game::Update()
 
     for (auto &asteroid : asteroids){
         if(CheckCollisionRecs(player.GetRect(), asteroid.GetRect())){
-                player.SetActive(false);
+                player.StartExplosion();    
+                
                 break;
         }
     }   
@@ -156,6 +157,10 @@ void Game::Update()
                        [](Asteroid &a)
                        { return !a.isActive(); }),
         asteroids.end());
+}
+
+bool Game::PlayerDead(){
+    return player.IsExploding();
 }
 
 // spawn on random position on screen edge

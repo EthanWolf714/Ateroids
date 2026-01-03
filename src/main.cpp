@@ -35,7 +35,7 @@ int main()
         //----------------------------------------------------------------------------------
         BeginDrawing();
         ClearBackground(BLACK);
-        if (!game.IsGameOver()) {
+        if (!game.IsGameOver() || game.PlayerDead()) {
             game.Draw();
             DrawText(TextFormat("Score: %i", game.HandleScore()),280, 0, 20, GREEN );
 

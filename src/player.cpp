@@ -11,6 +11,20 @@ Player::Player()
     scale = 2.0;
     rotation = 0.0f;
     active = true;
+    bulletSound = LoadSound("build/SFX/BULLET_1.wav");
+     explosion = LoadTexture("build/SPRITES/EXPLOSION.png");
+    frameHeight = (float)(explosion.height/NUM_FRAME_PER_LINE);
+    frameWidth = (float)(explosion.width/NUM_LINES);
+    currentFrame = 0;
+    currentLine = 0;
+   
+    
+    frameRec = {0,0, frameWidth, frameHeight};
+    explosionPos = position;
+
+    isExploding = false;
+    explosionTimer = 0.0f;
+
     
 
     
@@ -22,13 +36,50 @@ Player::~Player(){
 
 }
 
-void Player::Draw(){
-    
-    Rectangle source = {0,0, (float)image.width, (float)image.height}; //set source image
-    Rectangle dest = {position.x, position.y, image.width * scale, image.height * scale}; //scale
-    Vector2 origin = {(image.width * scale) / 2, (image.height * scale)/2}; //rotate around center
+void Player::Update(){
+     if(isExploding){
+        TraceLog(LOG_INFO, "Exploding - Frame: %d, Line: %d", currentFrame, currentLine);
+        explosionTimer += GetFrameTime();
+        if(explosionTimer >= 0.05f){
+            explosionTimer = 0;
+            currentFrame++;
 
-    DrawTexturePro(image, source, dest, origin, rotation, WHITE);
+            if (currentFrame >= NUM_FRAME_PER_LINE) {
+                active = false;
+                isExploding = false;
+                return;
+                
+                
+            }
+
+            frameRec.x = currentFrame * frameWidth;
+            frameRec.y = 0;
+        }
+    }
+}
+
+void Player::Draw(){
+    if(isExploding){
+        //TraceLog(LOG_INFO, "Drawing explosion");
+        float explosionScale = 4.0f;
+        Rectangle source = frameRec;
+        Rectangle dest = {
+            explosionPos.x - (frameWidth * explosionScale) / 2, // center it
+            explosionPos.y - (frameHeight * explosionScale) / 2,
+            frameWidth * explosionScale, 
+            frameHeight * explosionScale
+        };
+        DrawTexturePro(explosion, source, dest, {0, 0}, 0, WHITE);
+    } else if (active) {
+        Rectangle source = {0,0, (float)image.width, (float)image.height}; //set source image
+        Rectangle dest = {position.x, position.y, image.width * scale, image.height * scale}; //scale
+        Vector2 origin = {(image.width * scale) / 2, (image.height * scale)/2}; //rotate around center
+
+        DrawTexturePro(image, source, dest, origin, rotation, WHITE);
+    }
+    
+
+    
 }
 
 void Player::Rotate(){
@@ -46,6 +97,8 @@ void Player::Move(){
     //calculate speed
     speed.x = sin(rotation*DEG2RAD)*6.0f;
     speed.y = cos(rotation*DEG2RAD)*6.0f;
+
+   
 
     //player logic: accelertaion
     if(IsKeyDown(KEY_W)){
@@ -77,6 +130,13 @@ bool Player::Shoot(){
    return IsKeyPressed(KEY_SPACE);
 }
 
+void Player::StartExplosion(){
+    isExploding = true;
+    explosionPos = position;
+    currentFrame = 0;
+    currentLine = 0;
+}
+
 Vector2 Player::GetPlayerPosition(){
     return position;
 }
@@ -99,4 +159,8 @@ void Player::SetActive(bool value){
 
 bool Player::IsActive(){
     return active;
+}
+
+bool Player::IsExploding(){
+    return isExploding;
 }
