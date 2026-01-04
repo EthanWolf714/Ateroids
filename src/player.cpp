@@ -167,10 +167,3 @@ bool Player::IsExploding(){
     return isExploding;
 }
 
-void Player::GetLifes(){
-    if(lives ==0){
-        SetActive(false);
-    }else{
-        Player newPlayer;
-    }
-}
