@@ -6,6 +6,7 @@ Game::Game()
     // game loads texture once so its not being assigned every time a bullet is created
     bulletTexture = LoadTexture("build/SPRITES/BULLET.png");
     asteroidTexture = LoadTexture("build/SPRITES/ROCK.png");
+    hit = LoadSound("build/SFX/DESTROY_1.wav");
     score = 0;
 
     for (int i = 0; i < 10; i++)
@@ -21,6 +22,7 @@ Game::Game()
 Game::~Game()
 {
     UnloadTexture(bulletTexture);
+    UnloadSound(hit);
 }
 
 void Game::Restart(){
@@ -105,6 +107,7 @@ void Game::Update()
         {
             if (CheckCollisionRecs(bullet.GetRect(), asteroid.GetRect()))
             {
+                PlaySound(hit);
                 bullet.SetActive(false);
 
                 if(asteroid.GetSize() == 3){

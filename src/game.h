@@ -30,6 +30,7 @@ private:
     Texture2D asteroidTexture;
     bool GameOver;
     int score;
+    Sound hit;
     
 };
 

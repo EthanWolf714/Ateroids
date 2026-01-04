@@ -21,6 +21,8 @@ class Player{
         void StartExplosion();
         bool IsExploding();
         void Update();
+        void GetLifes();
+        
 
         
         
@@ -41,6 +43,8 @@ class Player{
     float explosionTimer;
     int explosionFrame;  // current frame (0-4)
     Vector2 explosionPos;
+    Sound explosionSound;
+    int lives;
 };
 
 

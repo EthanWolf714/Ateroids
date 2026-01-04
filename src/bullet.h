@@ -21,6 +21,7 @@ class Bullet{
         Texture2D* image;
         float lifetime;
         bool active;
+        Sound bulletSound;
 
 
 };

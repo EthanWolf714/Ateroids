@@ -14,9 +14,12 @@ int main()
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
+    InitAudioDevice();
 
     Game game;
     bool pause;
+
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -30,6 +33,8 @@ int main()
         if(!game.IsGameOver() && !pause){
             game.Update();
         }
+
+        
         
         // Draw
         //----------------------------------------------------------------------------------
@@ -38,6 +43,7 @@ int main()
         if (!game.IsGameOver() || game.PlayerDead()) {
             game.Draw();
             DrawText(TextFormat("Score: %i", game.HandleScore()),280, 0, 20, GREEN );
+            
 
             if(pause){
                 DrawText("Paused",350, 130, 40, GREEN);
@@ -46,6 +52,9 @@ int main()
             // Draw game over screen
             DrawText("GAME OVER", 280, 130, 40, RED);
             DrawText("Press ESC to exit or Enter to Restart", 180, 200, 50, WHITE);
+
+
+
             
         }
         EndDrawing();
@@ -53,6 +62,8 @@ int main()
     }
     // De-Initialization
     //--------------------------------------------------------------------------------------
+    
+    CloseAudioDevice();
     CloseWindow();
            // Close window and OpenGL context
     //--------------------------------------------------------------------------------------

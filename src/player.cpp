@@ -11,13 +11,16 @@ Player::Player()
     scale = 2.0;
     rotation = 0.0f;
     active = true;
+    lives = 3;
     bulletSound = LoadSound("build/SFX/BULLET_1.wav");
-    
+    explosionSound = LoadSound("build/SFX/GAME_OVER_1.wav");
     explosion = LoadTexture("build/SPRITES/EXPLOSION.png");
     isExploding = false;
     explosionTimer = 0.0f;
     explosionFrame = 0;
     explosionPos = {0, 0};
+
+
 
     
 
@@ -27,6 +30,8 @@ Player::Player()
 
 Player::~Player(){
     UnloadTexture(image);
+    UnloadSound(bulletSound);
+    UnloadSound(explosionSound);
 
 }
 
@@ -118,10 +123,15 @@ void Player::Move(){
 }
 
 bool Player::Shoot(){
-   return IsKeyPressed(KEY_SPACE);
+   if(IsKeyPressed(KEY_SPACE)) {
+    PlaySound(bulletSound);
+    return true;
+   }
+   return false;
 }
 
 void Player::StartExplosion() {
+    PlaySound(explosionSound);
     isExploding = true;
     explosionFrame = 0;
     explosionTimer = 0.07f;
@@ -154,4 +164,12 @@ bool Player::IsActive(){
 
 bool Player::IsExploding(){
     return isExploding;
+}
+
+void Player::GetLifes(){
+    if(lives ==0){
+        SetActive(false);
+    }else{
+        Player newPlayer;
+    }
 }
