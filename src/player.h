@@ -22,9 +22,12 @@ class Player{
         bool IsExploding();
         void Update();
         void AddLife();
+        void RemoveLife();
         void ActivateShield();
         void Reset();
         bool HasSheild();
+        void DeactivateShield();
+        int GetLives();
         
 
         

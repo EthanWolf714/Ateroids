@@ -1,11 +1,12 @@
 #include "powerup.h"
 #include "raylib.h"
 
-PowerUp::PowerUp( Vector2 startPos , Texture2D* texture) {
+PowerUp::PowerUp( Vector2 startPos , Texture2D* texture, std::string type) {
     status = true;
     image = texture;
     scale = 1.0f;
     position = startPos;
+    type = "";
 }
 PowerUp::~PowerUp(){
     
@@ -21,4 +22,8 @@ void PowerUp::Draw(){
 
 Rectangle PowerUp::GetRect(){
     return Rectangle{position.x, position.y, (float)image->width, (float)image->height};
+}
+
+std::string PowerUp::GetType(){
+    return type;
 }

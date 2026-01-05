@@ -209,7 +209,19 @@ void Player::ActivateShield(){
     hasSheild = true;
 }
 
+void Player::DeactivateShield(){
+    hasSheild = false;
+}
+
 bool Player::HasSheild(){
     return hasSheild;
+}
+
+int Player::GetLives(){
+    return lives;
+}
+
+void Player::RemoveLife(){
+    lives = lives - 1;
 }
 

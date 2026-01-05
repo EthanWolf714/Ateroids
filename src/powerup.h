@@ -5,11 +5,12 @@
 
 class PowerUp{
     public:
-        PowerUp( Vector2 startPos,Texture2D* texture);
+        PowerUp( Vector2 startPos,Texture2D* texture, std::string type);
         ~PowerUp();
         void Update();
         void Draw();
         Rectangle GetRect();
+        std::string GetType();
         
 
 
@@ -20,6 +21,7 @@ class PowerUp{
         bool status;
         float scale;
         Texture2D* image;
+        std::string type;
         
 
 };

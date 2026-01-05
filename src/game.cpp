@@ -146,12 +146,13 @@ void Game::Update()
                 if(spawnChance <= 15){
                     if(randPowerup == 1){
                         Vector2 pos = asteroid.GetPosition();
-                        powerups.push_back(PowerUp(pos, &extraLifeTexture));
+                        powerups.push_back(PowerUp(pos, &extraLifeTexture, "life"));
+
                         TraceLog(LOG_INFO, "Extra Life spawned at (%f, %f)", pos.x, pos.y);
                             
                     }else{
                         Vector2 pos = asteroid.GetPosition();
-                        powerups.push_back(PowerUp(pos, &sheildTexture));
+                        powerups.push_back(PowerUp(pos, &sheildTexture, "sheild"));
                         TraceLog(LOG_INFO, "Shield spawned at (%f, %f)", pos.x, pos.y);
                     }
 
@@ -179,16 +180,37 @@ void Game::Update()
         }
     }
 
+    //player powerup collision
+    for(auto &powerup : powerups){
+        if(CheckCollisionRecs(powerup.GetRect(), player.GetRect())){
+            if(powerup.GetType() == "sheild"){
+                player.ActivateShield();
+            }
+            if(powerup.GetType() == "life"){
+                player.AddLife();
+            }
+        }
+    }
 
     //asteroid player collision
     for (auto &asteroid : asteroids){
         if(CheckCollisionRecs(player.GetRect(), asteroid.GetRect())){
-            if(player.HasSheild()){
+            if(player.HasSheild() ){
+                player.DeactivateShield();
                 break;
             }else{
                 player.StartExplosion();    
                 break;
             }
+
+            if(player.GetLives() > 0){
+                player.RemoveLife();
+                break;
+            }else{
+                player.StartExplosion();    
+                break;
+            }
+            
                 
         }
     }   
