@@ -8,6 +8,7 @@ Asteroid::Asteroid(Vector2 startPos, Vector2 startSpeed, int asteroidSize, Textu
     size =  asteroidSize;
     image = asteroidTexture;
     
+    //scale asteroid based on size
     if(size == 3){
         scale = 3.0f;
     }else if(size == 2){
@@ -29,12 +30,14 @@ void Asteroid::Draw(){
 }
 
 void Asteroid::Update(){
+    //asteroid velocity
     position.x += speed.x * GetFrameTime();
     position.y += speed.y * GetFrameTime();
 
     float spriteWidth = image -> width * scale;
     float spriteHeight = image-> height * scale;
 
+    //if asteroid floats off screen then move position to other side of screen
     if(position.x > GetScreenWidth() + spriteWidth){
         position.x = -spriteWidth;
     }

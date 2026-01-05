@@ -96,6 +96,7 @@ void Game::Update()
         bullet.Update();
     }
 
+    //update all asteroids
     for (auto &asteroid : asteroids)
     {
         asteroid.Update();
@@ -105,11 +106,13 @@ void Game::Update()
     {
         for (auto &asteroid : asteroids)
         {
+            //bullet asteroid collision
             if (CheckCollisionRecs(bullet.GetRect(), asteroid.GetRect()))
             {
                 PlaySound(hit);
                 bullet.SetActive(false);
 
+                //score adding
                 if(asteroid.GetSize() == 3){
                     score += 100;
                 } else if(asteroid.GetSize() == 2){
@@ -121,6 +124,7 @@ void Game::Update()
                 asteroid.SetActive(false);
 
                 if(asteroid.GetSize() > 1){
+                    //asteroid splitting 
                     Vector2 pos = asteroid.GetPosition();
                     int newSize = asteroid.GetSize() - 1;
 
@@ -136,6 +140,8 @@ void Game::Update()
         }
     }
 
+
+    //asteroid player collision
     for (auto &asteroid : asteroids){
         if(CheckCollisionRecs(player.GetRect(), asteroid.GetRect())){
                 player.StartExplosion();    
@@ -155,6 +161,7 @@ void Game::Update()
                        { return !b.IsActive(); }),
         bullets.end());
 
+    //remove asteroids marked as inactive
     asteroids.erase(
         std::remove_if(asteroids.begin(), asteroids.end(),
                        [](Asteroid &a)
@@ -170,7 +177,7 @@ bool Game::PlayerDead(){
 Vector2 Game::GetRandomEdgePosition()
 {
     int edge = GetRandomValue(0, 3);
-
+    //asteroid spawning logic
     if (edge == 0)
     { // top
         return {(float)GetRandomValue(0, GetScreenWidth()), 0.0f};

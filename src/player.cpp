@@ -39,7 +39,7 @@ Player::~Player(){
 void Player::Update() {
     if (isExploding) {
         explosionTimer += GetFrameTime();
-        
+        //calculate explosion animation speed
         if (explosionTimer >= 0.07f) {  
             explosionTimer = 0;
             explosionFrame++;
@@ -53,11 +53,14 @@ void Player::Update() {
 }
 
 void Player::Draw(){
+    
     if (isExploding) {
+        //get fram width and height and scale to player
         float frameWidth = 120.0f / 5.0f;  // 5 frames = 24 pixels each
         float frameHeight = 20.0f;
         float scale = 2.0f;
         
+        //set rectangle for moving through sprite sheet
         Rectangle source = {explosionFrame * frameWidth, 0, frameWidth, frameHeight};
         Rectangle dest = {
             explosionPos.x - (frameWidth * scale) / 2,
@@ -65,9 +68,10 @@ void Player::Draw(){
             frameWidth * scale,
             frameHeight * scale
         };
-        
+        //draw animation
         DrawTexturePro(explosion, source, dest, {0, 0}, 0, WHITE);
     } else if (active) {
+        //draw ship sprite
         Rectangle source = {0,0, (float)image.width, (float)image.height}; //set source image
         Rectangle dest = {position.x, position.y, image.width * scale, image.height * scale}; //scale
         Vector2 origin = {(image.width * scale) / 2, (image.height * scale)/2}; //rotate around center
@@ -131,6 +135,7 @@ bool Player::Shoot(){
    return false;
 }
 
+//starts explosion animation
 void Player::StartExplosion() {
     PlaySound(explosionSound);
     isExploding = true;
