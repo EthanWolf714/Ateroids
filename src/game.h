@@ -20,6 +20,7 @@ public:
     Vector2 GetRandomVelocity();
     bool IsGameOver();
     bool PlayerDead();
+
     
 
 private:
@@ -32,6 +33,7 @@ private:
     bool GameOver;
     int score;
     Sound hit;
+    
     
 };
 

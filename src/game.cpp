@@ -26,7 +26,18 @@ Game::~Game()
 }
 
 void Game::Restart(){
-    Game();
+    score = 0;
+    player.Reset();
+    bullets.clear();
+    asteroids.clear();
+    for (int i = 0; i < 10; i++)
+    {
+        asteroids.push_back(Asteroid(
+            GetRandomEdgePosition(),
+            GetRandomVelocity(),
+            3,
+            &asteroidTexture));
+    }
 }
 
 void Game::Draw()

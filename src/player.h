@@ -21,8 +21,9 @@ class Player{
         void StartExplosion();
         bool IsExploding();
         void Update();
-        //void AddLife();
-        //ActivateShield
+        void AddLife();
+        void ActivateShield();
+        void Reset();
         
 
         
@@ -45,8 +46,8 @@ class Player{
     int explosionFrame;  // current frame (0-4)
     Vector2 explosionPos;
     Sound explosionSound;
-    //int lives;
-    // bool has sheild;
+    int lives;
+    bool hasSheild;
 };
 
 

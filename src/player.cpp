@@ -52,6 +52,18 @@ void Player::Update() {
     }
 }
 
+void Player::Reset(){
+    position.x = (GetScreenWidth() - image.width)/ 2;
+    position.y = (GetScreenHeight() - image.height) / 2;
+    scale = 2.0;
+    rotation = 0.0f;
+    active = true;
+    isExploding = false;
+    explosionTimer = 0.0f;
+    explosionFrame = 0;
+    explosionPos = {0, 0};
+}
+
 void Player::Draw(){
     
     if (isExploding) {

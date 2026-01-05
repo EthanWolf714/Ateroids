@@ -54,6 +54,10 @@ int main()
             DrawText("GAME OVER", 280, 130, 40, RED);
             DrawText("Press ESC to exit or Enter to Restart", 180, 200, 50, WHITE);
 
+            if(IsKeyPressed(KEY_ENTER)){
+               game.Restart();
+            }
+
 
 
             
