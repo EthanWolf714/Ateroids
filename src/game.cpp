@@ -48,7 +48,10 @@ void Game::Draw()
     player.Draw();
     
     for(auto &powerup : powerups){
-        powerup.Draw();
+        if(powerup.IsActive()){
+            powerup.Draw();
+        }
+        
     }
 
     for (auto &asteroid : asteroids)
@@ -185,9 +188,11 @@ void Game::Update()
         if(CheckCollisionRecs(powerup.GetRect(), player.GetRect())){
             if(powerup.GetType() == "sheild"){
                 player.ActivateShield();
+                powerup.SetActive(false);
             }
-            if(powerup.GetType() == "life"){
+            else if(powerup.GetType() == "life"){
                 player.AddLife();
+                powerup.SetActive(false);
             }
         }
     }
@@ -197,20 +202,20 @@ void Game::Update()
         if(CheckCollisionRecs(player.GetRect(), asteroid.GetRect())){
             if(player.HasSheild() ){
                 player.DeactivateShield();
+                asteroid.SetActive(false);
+               
+            }else if(player.GetLives() > 0){
+                player.RemoveLife();
+                player.StartExplosion();   
+                asteroid.SetActive(false); 
                 break;
             }else{
-                player.StartExplosion();    
-                break;
+                player.StartExplosion();
             }
 
-            if(player.GetLives() > 0){
-                player.RemoveLife();
-                break;
-            }else{
-                player.StartExplosion();    
-                break;
-            }
-            
+            break;
+
+           
                 
         }
     }   
@@ -232,6 +237,13 @@ void Game::Update()
                        [](Asteroid &a)
                        { return !a.isActive(); }),
         asteroids.end());
+
+    //remove dead powerups
+    powerups.erase(
+        std::remove_if(powerups.begin(), powerups.end(), 
+                        [](PowerUp &a)
+                        {return !a.IsActive(); }),
+        powerups.end());
 }
 
 bool Game::PlayerDead(){

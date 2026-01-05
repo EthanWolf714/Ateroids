@@ -11,6 +11,8 @@ class PowerUp{
         void Draw();
         Rectangle GetRect();
         std::string GetType();
+        void SetActive(bool active);
+        bool IsActive();
         
 
 

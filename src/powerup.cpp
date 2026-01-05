@@ -6,7 +6,7 @@ PowerUp::PowerUp( Vector2 startPos , Texture2D* texture, std::string type) {
     image = texture;
     scale = 1.0f;
     position = startPos;
-    type = "";
+    this ->type = type;
 }
 PowerUp::~PowerUp(){
     
@@ -26,4 +26,12 @@ Rectangle PowerUp::GetRect(){
 
 std::string PowerUp::GetType(){
     return type;
+}
+
+void PowerUp::SetActive(bool active){
+    status = active;
+}
+
+bool PowerUp::IsActive(){
+    return status;
 }
