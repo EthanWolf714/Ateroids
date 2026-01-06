@@ -46,7 +46,12 @@ void Player::Update() {
             
             if (explosionFrame >= 5) {  // all 5 frames done
                 isExploding = false;
-                active = false;
+                
+                if(lives > 0){
+                    Reset();
+                }else{
+                    active = false;
+                }
             }
         }
     }
@@ -201,7 +206,8 @@ bool Player::IsExploding(){
 }
 
 void Player::AddLife(){
-    lives = lives + 1;
+    lives++;
+    TraceLog(LOG_INFO, "AddLife called! Lives now: %d", lives);
 
 }
 
@@ -222,6 +228,7 @@ int Player::GetLives(){
 }
 
 void Player::RemoveLife(){
-    lives = lives - 1;
+     TraceLog(LOG_INFO, "RemoveLife called! Lives now: %d", lives);
+    lives--;
 }
 

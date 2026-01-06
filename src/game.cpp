@@ -142,21 +142,21 @@ void Game::Update()
                 asteroid.SetActive(false);
                 int randPowerup = GetRandomValue(1,2);
                 int spawnChance = GetRandomValue(1, 100);
-                TraceLog(LOG_INFO, "Spawn chance: %d", spawnChance);
+               // TraceLog(LOG_INFO, "Spawn chance: %d", spawnChance);
                 if(spawnChance <= 15){
                     if(randPowerup == 1){
                         Vector2 pos = asteroid.GetPosition();
                         powerups.push_back(PowerUp(pos, &extraLifeTexture, "life"));
 
-                        TraceLog(LOG_INFO, "Extra Life spawned at (%f, %f)", pos.x, pos.y);
+                        //TraceLog(LOG_INFO, "Extra Life spawned at (%f, %f)", pos.x, pos.y);
                             
                     }else{
                         Vector2 pos = asteroid.GetPosition();
                         powerups.push_back(PowerUp(pos, &sheildTexture, "sheild"));
-                        TraceLog(LOG_INFO, "Shield spawned at (%f, %f)", pos.x, pos.y);
+                        //TraceLog(LOG_INFO, "Shield spawned at (%f, %f)", pos.x, pos.y);
                     }
 
-                    TraceLog(LOG_INFO, "Total powerups: %d", powerups.size());
+                    //TraceLog(LOG_INFO, "Total powerups: %d", powerups.size());
                         
                 }
                 
@@ -205,9 +205,9 @@ void Game::Update()
                
             }else if(player.GetLives() > 0){
                 player.RemoveLife();
+               // TraceLog(LOG_INFO, "Calling RemoveLife - before: %d lives", player.GetLives());
                 player.StartExplosion();   
                 asteroid.SetActive(false); 
-                player.Reset();
                 break;
             }else{
                 player.StartExplosion();
