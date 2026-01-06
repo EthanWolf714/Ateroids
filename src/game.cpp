@@ -12,15 +12,9 @@ Game::Game()
     pickup = LoadSound("build/SFX/PICKUP_1.wav");
     sheildTexture = LoadTexture("build/SPRITES/SHIELD.png");
     score = 0;
+    level = 1;
 
-    for (int i = 0; i < 4; i++)
-    {
-        asteroids.push_back(Asteroid(
-            GetRandomEdgePosition(),
-            GetRandomVelocity(),
-            3,
-            &asteroidTexture));
-    }
+    StartNextLevel();
 }
 
 Game::~Game()
@@ -31,6 +25,7 @@ Game::~Game()
 
 void Game::Restart(){
     score = 0;
+    level = 1;
     player.Reset();
     bullets.clear();
     asteroids.clear();
@@ -249,10 +244,39 @@ void Game::Update()
                         [](PowerUp &a)
                         {return !a.IsActive(); }),
         powerups.end());
+
+
+    if(IsLevelComplete() && player.IsActive()){
+        level++;
+        StartNextLevel();
+    }
 }
 
 bool Game::PlayerDead(){
     return player.IsExploding();
+}
+
+bool Game::IsLevelComplete(){
+    return asteroids.empty();
+}
+
+void Game::StartNextLevel(){
+    //clear powerups and bullets
+    bullets.clear();
+    powerups.clear();
+
+    //spawn more asteroids
+    int numAsteroids = 5 + (level * 2);
+
+    for(int i = 0; i < numAsteroids; i++){
+        asteroids.push_back(Asteroid(
+            GetRandomEdgePosition(),
+            GetRandomVelocity(),
+            3,
+            &asteroidTexture
+        ));
+    }
+
 }
 
 // spawn on random position on screen edge

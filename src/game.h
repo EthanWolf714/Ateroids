@@ -22,6 +22,8 @@ public:
     bool IsGameOver();
     bool PlayerDead();
     int HandleLives();
+    bool IsLevelComplete();
+    void StartNextLevel();
 
 private:
     Player player;
@@ -37,6 +39,7 @@ private:
     Sound hit;
     Sound damage;
     Sound pickup;
+    int level;
 };
 
 #endif
